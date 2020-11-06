@@ -38,7 +38,7 @@ token &lt;- create_token(
 <pre class="r"><code>toInstall &lt;- c(&quot;ggplot2&quot;, &quot;scales&quot;, &quot;R2WinBUGS&quot;, &quot;devtools&quot;, &quot;yaml&quot;, &quot;httr&quot;, &quot;RJSONIO&quot;)
 install.packages(toInstall, repos = &quot;http://cran.r-project.org&quot;)
 library(devtools)
-install_github(&quot;pablobarbera/twitter_ideology/pkg/tweetscores&quot;)</code></pre>
+install_github(&quot;kellinpelrine/twitter_ideology/pkg/tweetscores&quot;)</code></pre>
 </div>
 <div id="estimating-the-ideological-positions-of-a-us-twitter-user" class="section level3">
 <h3>Estimating the ideological positions of a US Twitter user</h3>
