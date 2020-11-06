@@ -15,7 +15,7 @@ Finally, this repository also contains an R package (`tweetscores`) with several
 <p>2 - Click on “Create New App”</p>
 <p>3 - Fill name, description, and website (it can be anything, even google.com), and make sure you leave ‘Callback URL’ empty</p>
 <p>4 - Agree to user conditions</p>
-<p>5 - Copy consumer key and consumer secret and paste below</p>
+<p>5 - Copy keys and paste below</p>
 <pre class="r"><code>install.packages(&quot;rtweet&quot;)
 library(rtweet)
 
