@@ -16,22 +16,21 @@ Finally, this repository also contains an R package (`tweetscores`) with several
 <p>3 - Fill name, description, and website (it can be anything, even google.com), and make sure you leave ‘Callback URL’ empty</p>
 <p>4 - Agree to user conditions</p>
 <p>5 - Copy consumer key and consumer secret and paste below</p>
-<pre class="r"><code>install.packages(&quot;ROAuth&quot;)
-library(ROAuth)
-requestURL &lt;- &quot;https://api.twitter.com/oauth/request_token&quot;
-accessURL &lt;- &quot;https://api.twitter.com/oauth/access_token&quot;
-authURL &lt;- &quot;https://api.twitter.com/oauth/authorize&quot;
-consumerKey &lt;- &quot;XXXXXXXXXXXX&quot;
-consumerSecret &lt;- &quot;YYYYYYYYYYYYYYYYYYY&quot;
-my_oauth &lt;- OAuthFactory$new(consumerKey=consumerKey, consumerSecret=consumerSecret, 
-    requestURL=requestURL, accessURL=accessURL, authURL=authURL)</code></pre>
-<p>6 - Run this line and go to the URL that appears on screen</p>
-<pre class="r"><code>my_oauth$handshake(cainfo = system.file(&quot;CurlSSL&quot;, &quot;cacert.pem&quot;, package = &quot;RCurl&quot;))</code></pre>
-<p>7 - Copy and paste the PIN number (6 digits) on the R console</p>
-<p>8 - Change current folder into a folder where you will save all your tokens</p>
-<pre class="r"><code>setwd(&quot;~/Dropbox/credentials/twitter&quot;)</code></pre>
-<p>9 - Now you can save oauth token for use in future sessions with R</p>
-<pre class="r"><code>save(my_oauth, file=&quot;my_oauth&quot;)</code></pre>
+<pre class="r"><code>install.packages(&quot;rtweet&quot;)
+library(rtweet)
+
+api_key &lt;- &quot;KEY&quot;
+api_secret_key &lt;- &quot;KEY&quot;
+access_token &lt;- &quot;KEY&quot;
+access_token_secret &lt;- &quot;KEY&quot;
+
+token &lt;- create_token(
+  app = &quot;APP_NAME&quot;,
+  consumer_key = api_key,
+  consumer_secret = api_secret_key,
+  access_token = access_token,
+  access_secret = access_token_secret)
+
 </div>
 <div id="installing-tweetscores-package" class="section level3">
 <h3>Installing the <code>tweetscores</code> package</h3>
