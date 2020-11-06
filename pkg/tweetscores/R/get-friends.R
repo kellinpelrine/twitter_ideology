@@ -11,13 +11,10 @@
 #'
 #' @author
 #' Pablo Barbera \email{P.Barbera@@lse.ac.uk}
+#' Modified by Kellin Pelrine \email{kellin.pelrine@mila.quebec}
 #'
 #' @param screen_name user name of the Twitter user for which their friends
 #' will be downloaded
-#'
-#' @param oauth One of the following: either a list with details for an access token
-#' (see example below), a folder where OAuth tokens are stored, or a csv file
-#' with the format: consumer_key, consumer_secret, access_token, access_token_secret.
 #'
 #' @param cursor See \url{https://dev.twitter.com/docs/api/1.1/get/friends/ids}
 #'
@@ -39,45 +36,19 @@
 #' }
 #'
 
-getFriends <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbose=TRUE, sleep=1){
+getFriends <- function(screen_name=NULL, cursor=-1, user_id=NULL, verbose=TRUE, sleep=1){
 
-  ## loading credentials
-  my_oauth <- getOAuth(oauth, verbose=verbose)
-
-  ## while rate limit is 0, open a new one
-  limit <- getLimitFriends(my_oauth)
-  if (verbose){message(limit, " API calls left")}
-  while (limit==0){
-    my_oauth <- getOAuth(oauth, verbose=verbose)
-    Sys.sleep(sleep)
-    # sleep for 5 minutes if limit rate is less than 100
-    rate.limit <- getLimitRate(my_oauth)
-    if (rate.limit<100){
-      Sys.sleep(300)
-    }
-    limit <- getLimitFriends(my_oauth)
-    if (verbose){message(limit, " API calls left")}
-  }
-  ## url to call
-  url <- "https://api.twitter.com/1.1/friends/ids.json"
   ## empty list for friends
   friends <- c()
   ## while there's more data to download...
   while (cursor!=0){
     ## making API call
-    if (!is.null(screen_name)){
-      params <- list(screen_name = screen_name, cursor = cursor, stringify_ids="true")
-    }
-    if (!is.null(user_id)){
-      params <- list(user_id = user_id, cursor = cursor, stringify_ids="true")
-    }
-    url.data <- my_oauth$OAuthRequest(URL=url, params=params, method="GET",
-                                      cainfo=system.file("CurlSSL", "cacert.pem", package = "RCurl"))
+
+    json.data <- get_friends(user, parse=FALSE, retryonratelimit=TRUE, page=cursor)
     Sys.sleep(sleep)
     ## one API call less
-    limit <- limit - 1
+    ##limit <- limit - 1
     ## trying to parse JSON data
-    json.data <- jsonlite::fromJSON(url.data)
     if (length(json.data$error)!=0){
       if (verbose){message(url.data)}
       stop("error! Last cursor: ", cursor)
@@ -91,21 +62,6 @@ getFriends <- function(screen_name=NULL, oauth, cursor=-1, user_id=NULL, verbose
     cursor <- json.data$next_cursor_str
     ## giving info
     message(length(friends), " friends. Next cursor: ", cursor)
-
-    ## changing oauth token if we hit the limit
-    if (verbose){message(limit, " API calls left")}
-    while (limit==0){
-      my_oauth <- getOAuth(oauth, verbose=verbose)
-      Sys.sleep(sleep)
-      # sleep for 5 minutes if limit rate is less than 50
-      rate.limit <- getLimitRate(my_oauth)
-      if (rate.limit<50){
-        Sys.sleep(300)
-      }
-      limit <- getLimitFriends(my_oauth)
-      if (verbose){message(limit, " API calls left")}
-    }
   }
   return(friends)
 }
-
