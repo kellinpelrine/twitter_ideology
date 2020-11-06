@@ -10,12 +10,7 @@ As an application of the method, in June 2015 I wrote a blog post on The Monkey 
 Finally, this repository also contains an R package (`tweetscores`) with several functions to facilitate the application of this method in future research. The rest of this README file provides a tutorial with instructions showing how to use it
 
 <h3>Authentication</h3>
-<p>In order to download data from Twitter’s API, the first step is to create an authentication token. In order to do so, it’s necessary to follow these steps:</p>
-<p>1 - Go to apps.twitter.com and sign in</p>
-<p>2 - Click on “Create New App”</p>
-<p>3 - Fill name, description, and website (it can be anything, even google.com), and make sure you leave ‘Callback URL’ empty</p>
-<p>4 - Agree to user conditions</p>
-<p>5 - Copy keys and paste below</p>
+<p>Copy below and substitute in your twitter API keys:</p>
 <pre class="r"><code>install.packages(&quot;rtweet&quot;)
 library(rtweet)
 
