@@ -42,7 +42,7 @@ install_github(&quot;kellinpelrine/twitter_ideology/pkg/tweetscores&quot;)</code
 library(tweetscores)</code></pre>
 <pre class="r"><code># downloading friends of a user
 user &lt;- &quot;p_barbera&quot;
-friends &lt;- getFriends(screen_name=user, oauth=&quot;~/Dropbox/credentials/twitter&quot;)</code></pre>
+friends &lt;- getFriends(screen_name=user)</code></pre>
 <pre><code>## /Users/pablobarbera/Dropbox/credentials/twitter/oauth_token_32 
 ## 15  API calls left
 ## 1065 friends. Next cursor:  0 
